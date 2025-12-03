@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fit - 運動與生活紀錄平台</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* 自定義動畫 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Header 導航欄 -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">F</span>
+                    </div>
+                    <span class="text-2xl font-bold text-gray-800">Fit</span>
+                </div>
+                
+                <!-- 導航選單 -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#features" class="text-gray-700 hover:text-blue-600 transition">功能特色</a>
+                    <a href="#analytics" class="text-gray-700 hover:text-blue-600 transition">數據分析</a>
+                    <a href="#health" class="text-gray-700 hover:text-blue-600 transition">健康管理</a>
+                    <a href="#groups" class="text-gray-700 hover:text-blue-600 transition">群組系統</a>
+                    <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                        開始使用
+                    </button>
+                </div>
+                
+                <!-- 手機版選單按鈕 -->
+                <button class="md:hidden text-gray-700" id="mobileMenuBtn">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- 手機版選單 -->
+            <div class="hidden md:hidden mt-4 pb-4" id="mobileMenu">
+                <div class="flex flex-col space-y-3">
+                    <a href="#features" class="text-gray-700 hover:text-blue-600 transition">功能特色</a>
+                    <a href="#analytics" class="text-gray-700 hover:text-blue-600 transition">數據分析</a>
+                    <a href="#health" class="text-gray-700 hover:text-blue-600 transition">健康管理</a>
+                    <a href="#groups" class="text-gray-700 hover:text-blue-600 transition">群組系統</a>
+                    <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition w-full">
+                        開始使用
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main 主內容區 -->
+    <main>
+        <!-- Hero Section 主視覺區 -->
+        <section class="bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 text-white py-20">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center animate-fade-in-up">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                        運動與生活紀錄平台
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-8 text-blue-100">
+                        整合穿戴裝置、手機應用、IoT健身器材<br>
+                        提供個人、健身房、企業健康管理的完整解決方案
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg">
+                            立即體驗
+                        </button>
+                        <button class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition">
+                            了解更多
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 功能特色區 Features Section -->
+        <section id="features" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">功能模組</h2>
+                
+                <!-- 運動資料收集 -->
+                <div class="mb-16">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-700">運動資料收集</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- 跑步配速 -->
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                            <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-semibold mb-2 text-gray-800">跑步配速</h4>
+                            <p class="text-gray-600">即時追蹤跑步速度、距離與配速分析</p>
+                        </div>
+                        
+                        <!-- 騎乘功率 -->
+                        <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                            <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-semibold mb-2 text-gray-800">騎乘功率</h4>
+                            <p class="text-gray-600">監測自行車功率輸出與訓練強度</p>
+                        </div>
+                        
+                        <!-- 重訓肌力 -->
+                        <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                            <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-semibold mb-2 text-gray-800">重訓肌力</h4>
+                            <p class="text-gray-600">記錄重量訓練數據與肌肉群分析</p>
+                        </div>
+                        
+                        <!-- 游泳泳姿 -->
+                        <div class="bg-gradient-to-br from-cyan-50 to-cyan-100 p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                            <div class="w-12 h-12 bg-cyan-500 rounded-lg flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-semibold mb-2 text-gray-800">游泳泳姿</h4>
+                            <p class="text-gray-600">分析游泳姿勢效率與距離統計</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 其他運動數據 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                    <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl shadow-md">
+                        <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
+                            <span class="text-white font-bold text-xl">🔥</span>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2 text-gray-800">有氧卡路里</h4>
+                        <p class="text-gray-600">計算運動消耗的卡路里</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-pink-50 to-pink-100 p-6 rounded-xl shadow-md">
+                        <div class="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2 text-gray-800">心率監測</h4>
+                        <p class="text-gray-600">即時心率追蹤與區間分析</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl shadow-md">
+                        <div class="w-12 h-12 bg-indigo-500 rounded-lg flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2 text-gray-800">睡眠品質</h4>
+                        <p class="text-gray-600">深度睡眠、淺眠、REM 階段分析</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl shadow-md">
+                        <div class="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2 text-gray-800">步數統計</h4>
+                        <p class="text-gray-600">每日步數與活動量追蹤</p>
+                    </div>
+                </div>
+
+                <!-- 雲端同步模組 -->
+                <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-8 rounded-2xl shadow-xl mb-16">
+                    <div class="flex flex-col md:flex-row items-center justify-between">
+                        <div class="mb-6 md:mb-0 md:mr-8">
+                            <h3 class="text-3xl font-bold mb-4">雲端同步模組</h3>
+                            <p class="text-lg text-blue-100">
+                                保存所有運動紀錄，支援長期追蹤與跨裝置存取<br>
+                                無論是手機、平板或電腦，隨時隨地查看您的數據
+                            </p>
+                        </div>
+                        <div class="flex space-x-4">
+                            <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                            </div>
+                            <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 數據分析與視覺化區 Analytics Section -->
+        <section id="analytics" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">數據分析與視覺化</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                    <!-- 心率區間分析 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">心率區間分析</h3>
+                        <canvas id="heartRateChart" height="200"></canvas>
+                    </div>
+                    
+                    <!-- 速度分析 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">速度分析</h3>
+                        <canvas id="speedChart" height="200"></canvas>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- 瓦特功率 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">瓦特功率</h3>
+                        <div class="text-center">
+                            <div class="text-5xl font-bold text-blue-600 mb-2">285</div>
+                            <div class="text-gray-600">平均功率 (W)</div>
+                            <div class="mt-4 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-600 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 步頻分析 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">步頻分析</h3>
+                        <div class="text-center">
+                            <div class="text-5xl font-bold text-green-600 mb-2">180</div>
+                            <div class="text-gray-600">步/分鐘</div>
+                            <div class="mt-4 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-green-600 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 象限分析 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">象限分析</h3>
+                        <canvas id="quadrantChart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 團體訓練系統 Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">團體訓練系統</h2>
+                
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-8 rounded-2xl shadow-xl">
+                        <h3 class="text-2xl font-bold mb-6">多人即時數據收集與教練端分析</h3>
+                        
+                        <!-- 模擬訓練成員列表 -->
+                        <div class="space-y-4">
+                            <div class="bg-white bg-opacity-20 rounded-lg p-4 flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-white bg-opacity-30 rounded-full flex items-center justify-center font-bold">
+                                        王
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold">王小明</div>
+                                        <div class="text-sm text-purple-100">心率: 145 bpm | 功率: 280W</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl font-bold">85%</div>
+                                    <div class="text-sm text-purple-100">訓練強度</div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white bg-opacity-20 rounded-lg p-4 flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-white bg-opacity-30 rounded-full flex items-center justify-center font-bold">
+                                        李
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold">李小華</div>
+                                        <div class="text-sm text-purple-100">心率: 162 bpm | 功率: 320W</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl font-bold">92%</div>
+                                    <div class="text-sm text-purple-100">訓練強度</div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white bg-opacity-20 rounded-lg p-4 flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-white bg-opacity-30 rounded-full flex items-center justify-center font-bold">
+                                        張
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold">張三</div>
+                                        <div class="text-sm text-purple-100">心率: 138 bpm | 功率: 250W</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl font-bold">78%</div>
+                                    <div class="text-sm text-purple-100">訓練強度</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 健康管理區 Health Section -->
+        <section id="health" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">健康管理</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- 體脂肪 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800">體脂肪</h3>
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                                <span class="text-red-600 text-xl">📊</span>
+                            </div>
+                        </div>
+                        <div class="text-4xl font-bold text-red-600 mb-2">18.5%</div>
+                        <div class="text-sm text-gray-600 mb-4">健康範圍: 10-20%</div>
+                        <div class="h-3 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-red-500 rounded-full" style="width: 74%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 肌肉率 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800">肌肉率</h3>
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 text-xl">💪</span>
+                            </div>
+                        </div>
+                        <div class="text-4xl font-bold text-blue-600 mb-2">42.3%</div>
+                        <div class="text-sm text-gray-600 mb-4">目標: 45%</div>
+                        <div class="h-3 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-blue-500 rounded-full" style="width: 84%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 水分率 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800">水分率</h3>
+                            <div class="w-12 h-12 bg-cyan-100 rounded-full flex items-center justify-center">
+                                <span class="text-cyan-600 text-xl">💧</span>
+                            </div>
+                        </div>
+                        <div class="text-4xl font-bold text-cyan-600 mb-2">58.2%</div>
+                        <div class="text-sm text-gray-600 mb-4">理想範圍: 55-65%</div>
+                        <div class="h-3 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-cyan-500 rounded-full" style="width: 93%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 睡眠品質 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800">睡眠品質</h3>
+                            <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
+                                <span class="text-indigo-600 text-xl">😴</span>
+                            </div>
+                        </div>
+                        <div class="text-4xl font-bold text-indigo-600 mb-2">8.2h</div>
+                        <div class="text-sm text-gray-600 mb-4">深度睡眠: 2.5h</div>
+                        <div class="h-3 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-indigo-500 rounded-full" style="width: 82%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 群組系統區 Groups Section -->
+        <section id="groups" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">群組系統</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- 球隊健康推動 -->
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-8 rounded-xl shadow-md">
+                        <h3 class="text-2xl font-semibold mb-6 text-gray-800">球隊健康推動</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-4 bg-white rounded-lg">
+                                <div>
+                                    <div class="font-semibold text-gray-800">本週總運動時數</div>
+                                    <div class="text-sm text-gray-600">12 位成員</div>
+                                </div>
+                                <div class="text-3xl font-bold text-green-600">156h</div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-white rounded-lg">
+                                <div>
+                                    <div class="font-semibold text-gray-800">平均完成率</div>
+                                    <div class="text-sm text-gray-600">訓練計畫</div>
+                                </div>
+                                <div class="text-3xl font-bold text-green-600">87%</div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-white rounded-lg">
+                                <div>
+                                    <div class="font-semibold text-gray-800">團隊排名</div>
+                                    <div class="text-sm text-gray-600">全平台</div>
+                                </div>
+                                <div class="text-3xl font-bold text-green-600">#3</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 企業健康管理 -->
+                    <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-8 rounded-xl shadow-md">
+                        <h3 class="text-2xl font-semibold mb-6 text-gray-800">企業健康管理</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-4 bg-white rounded-lg">
+                                <div>
+                                    <div class="font-semibold text-gray-800">參與員工數</div>
+                                    <div class="text-sm text-gray-600">3 個部門</div>
+                                </div>
+                                <div class="text-3xl font-bold text-blue-600">245</div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-white rounded-lg">
+                                <div>
+                                    <div class="font-semibold text-gray-800">健康分數</div>
+                                    <div class="text-sm text-gray-600">平均分數</div>
+                                </div>
+                                <div class="text-3xl font-bold text-blue-600">82</div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-white rounded-lg">
+                                <div>
+                                    <div class="font-semibold text-gray-800">活動達成率</div>
+                                    <div class="text-sm text-gray-600">本月目標</div>
+                                </div>
+                                <div class="text-3xl font-bold text-blue-600">76%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 成員運動數據分析圖表 -->
+                <div class="mt-12 bg-white p-8 rounded-xl shadow-md">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">成員運動數據分析</h3>
+                    <div class="max-h-64">
+                        <canvas id="groupActivityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer 頁尾 -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- 關於我們 -->
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">關於 Fit</h4>
+                    <p class="text-gray-400">
+                        專業的運動與生活紀錄平台，整合多種裝置與數據來源，提供完整的健康管理解決方案。
+                    </p>
+                </div>
+                
+                <!-- 產品 -->
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">產品</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">個人版</a></li>
+                        <li><a href="#" class="hover:text-white transition">健身房版</a></li>
+                        <li><a href="#" class="hover:text-white transition">企業版</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 支援 -->
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">支援</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">使用說明</a></li>
+                        <li><a href="#" class="hover:text-white transition">API 文件</a></li>
+                        <li><a href="#" class="hover:text-white transition">常見問題</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 聯絡我們 -->
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">聯絡我們</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>Email: support@fit.com</li>
+                        <li>電話: 02-1234-5678</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Fit 運動與生活紀錄平台. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript 腳本 -->
+    <script>
+        // 手機版選單切換
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 平滑滾動
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // 關閉手機版選單
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // 心率區間分析圖表
+        const heartRateCtx = document.getElementById('heartRateChart').getContext('2d');
+        new Chart(heartRateCtx, {
+            type: 'bar',
+            data: {
+                labels: ['恢復區', '有氧區', '燃脂區', '無氧區', '最大區'],
+                datasets: [{
+                    label: '時間 (分鐘)',
+                    data: [20, 45, 30, 15, 5],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(34, 197, 94, 0.8)',
+                        'rgba(251, 191, 36, 0.8)',
+                        'rgba(239, 68, 68, 0.8)',
+                        'rgba(139, 92, 246, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // 速度分析圖表
+        const speedCtx = document.getElementById('speedChart').getContext('2d');
+        new Chart(speedCtx, {
+            type: 'line',
+            data: {
+                labels: ['週一', '週二', '週三', '週四', '週五', '週六', '週日'],
+                datasets: [{
+                    label: '平均速度 (km/h)',
+                    data: [12.5, 13.2, 12.8, 13.5, 13.8, 14.2, 13.9],
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                }
+            }
+        });
+
+        // 象限分析圖表
+        const quadrantCtx = document.getElementById('quadrantChart').getContext('2d');
+        new Chart(quadrantCtx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: '訓練數據點',
+                    data: [
+                        {x: 65, y: 70}, {x: 72, y: 75}, {x: 68, y: 68},
+                        {x: 75, y: 80}, {x: 70, y: 72}, {x: 78, y: 82}
+                    ],
+                    backgroundColor: 'rgba(59, 130, 246, 0.6)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: '強度 (%)'
+                        },
+                        min: 0,
+                        max: 100
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '效率 (%)'
+                        },
+                        min: 0,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        // 群組活動圖表
+        const groupActivityCtx = document.getElementById('groupActivityChart').getContext('2d');
+        new Chart(groupActivityCtx, {
+            type: 'bar',
+            data: {
+                labels: ['第1週', '第2週', '第3週', '第4週'],
+                datasets: [
+                    {
+                        label: '運動時數',
+                        data: [120, 135, 145, 156],
+                        backgroundColor: 'rgba(34, 197, 94, 0.8)'
+                    },
+                    {
+                        label: '目標時數',
+                        data: [140, 140, 140, 140],
+                        backgroundColor: 'rgba(156, 163, 175, 0.5)',
+                        type: 'line',
+                        borderColor: 'rgba(156, 163, 175, 1)',
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 3,
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
