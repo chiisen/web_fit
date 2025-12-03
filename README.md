@@ -1,6 +1,6 @@
 # Fit - 運動與生活紀錄平台 DEMO
 
-使用 Edge Copilot 進行網頁分析，並配合 Cursor AI 復刻一個運動與生活紀錄的平台 DEMO 網站。
+使用 Edge Copilot 進行網頁分析，並配合 Cursor AI 復刻一個運動與生活紀錄的平台 DEMO 網站，已上傳到 netlify 與 vercel。
 
 ---
 
@@ -8,8 +8,8 @@
 
 ---
 
-[netlify DEMO 網頁](https://comfy-basbousa-989e68.netlify.app/)
-[vercel DEMO 網頁](https://web-fit-psi.vercel.app/)
+[netlify DEMO 網頁](https://comfy-basbousa-989e68.netlify.app/)  
+[vercel DEMO 網頁](https://web-fit-psi.vercel.app/)  
 
 ---
 
